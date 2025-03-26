@@ -35,15 +35,15 @@ def enable_fun(piper:C_PiperInterface):
 
 def send_to_arms(piper2, piper3, piper4, joint_1, joint_2, joint_3, joint_4, joint_5, joint_6, gripper):
     # `piper2`, `piper3`, `piper4`에만 조인트와 그리퍼 값을 전송
-    piper2.MotionCtrl_2(0x01, 0x01, 100, 0x00)
+    piper2.MotionCtrl_2(0x01, 0x01, 100, 0xAD)
     piper2.JointCtrl(joint_1, joint_2, joint_3, joint_4, joint_5, joint_6)
     piper2.GripperCtrl(abs(gripper), 1000, 0x01, 0)
 
-    piper3.MotionCtrl_2(0x01, 0x01, 100, 0x00)
+    piper3.MotionCtrl_2(0x01, 0x01, 100, 0xAD)
     piper3.JointCtrl(joint_1, joint_2, joint_3, joint_4, joint_5, joint_6)
     piper3.GripperCtrl(abs(gripper), 1000, 0x01, 0)
 
-    piper4.MotionCtrl_2(0x01, 0x01, 100, 0x00)
+    piper4.MotionCtrl_2(0x01, 0x01, 100, 0xAD)
     piper4.JointCtrl(joint_1, joint_2, joint_3, joint_4, joint_5, joint_6)
     piper4.GripperCtrl(abs(gripper), 1000, 0x01, 0)
 
