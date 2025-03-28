@@ -19,13 +19,15 @@ if __name__ == "__main__":
     piper.MotionCtrl_1(0x00, 0, 0x00)
 
     piper.MotionCtrl_2(0x01, 0, 0, 0x00)  # 한 번만 실행 시 StandBy 모드
+    piper.GripperCtrl(0, 0, 0x02, 0)
     time.sleep(1)
 
     piper.MotionCtrl_2(0x01, 0, 0, 0x00)  # 최종적으로 한번 더 실행해야 CAN 모드로 변경
+    piper.GripperCtrl(0, 0, 0x03, 0)
     time.sleep(1)
 
     if piper.GetArmStatus().arm_status.ctrl_mode == 0x01:
         print("정상 리셋되었습니다. PiPER를 작동시킬 수 있습니다.")
     else:
         print("리셋에 실패했습니다. PiPER를 작동시키지 말아주세요!")
-    pass
+        pass
