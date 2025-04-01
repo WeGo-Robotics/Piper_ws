@@ -7,12 +7,13 @@ from sensor_msgs.msg import JointState
 
 class WegoPublisher(Node):
     def __init__(self):
-        super().__init__("wego_pub_node")  # 노드 이름 설정
-        self.pub = self.create_publisher(JointState, "joint_ctrl_single", 10)  # 퍼블리셔 생성
+        super().__init__("wego_pub_movej_node")  # 노드 이름 설정
+        self.pub = self.create_publisher(JointState, "joint_states", 10)  # 퍼블리셔 생성
 
         # 타이머 생성: 2초마다 콜백 함수 호출
         self.timer = self.create_timer(1.0, self.publisher_joint)
         self.msg = JointState()  # 메시지 객체 생성
+        self.msg.name = ["joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7"]
 
         # Waypoints 정의 (값을 float으로 변경)
         self.waypoints = [
