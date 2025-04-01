@@ -232,13 +232,12 @@ class C_PiperRosNode(Node):
                 self.piper.EndPoseCtrl(*self.position_state)
 
                 gripper = round(pos_data.gripper * 1000 * 1000)
-                if pos_data.gripper > 80000:
-                    gripper = 80000
+                if pos_data.gripper > 70000:
+                    gripper = 70000
                 if pos_data.gripper < 0:
                     gripper = 0
                 if self.gripper_exist:
                     self.piper.GripperCtrl(abs(gripper), 1000, 0x01, 0)
-                self.piper.MotionCtrl_2(0x01, 0x00, 50)
 
         # 3회 반복 후 초기화
         if self.count == 3:
@@ -247,7 +246,6 @@ class C_PiperRosNode(Node):
     def joint_callback(self, joint_data):
         factor = 57324.840764  # 1000*180/3.14
         joint_positions = {}
-        joint_6 = 0
 
         for idx, joint_name in enumerate(joint_data.name):
             if self.debug:
@@ -293,9 +291,9 @@ class C_PiperRosNode(Node):
                         if self.debug:
                             self.get_logger().warning("Gripper effort is NaN, using default value.")
                         gripper_effort = 0
-                    self.piper.GripperCtrl(abs(joint_6), gripper_effort, 0x01, 0)
+                    self.piper.GripperCtrl(abs(gripper), gripper_effort, 0x01, 0)
                 else:
-                    self.piper.GripperCtrl(abs(joint_6), 1000, 0x01, 0)
+                    self.piper.GripperCtrl(abs(gripper), 1000, 0x01, 0)
 
     def enable_callback(self, enable_flag: Bool):
         if self.debug:
@@ -331,13 +329,14 @@ class C_PiperRosNode(Node):
             if self.debug:
                 self.get_logger().info("Close the gripper...")
             self.gripper_min = 0
-            self.piper.MotionCtrl_2(0x01, 0x01, 50)
+            self.piper.MotionCtrl_2(0x01, self.piper.GetArmStatus().arm_status.mode_feed, 100)
             self.piper.GripperCtrl(self.gripper_min, 1000, 0x01, 0)
+
         else:
             if self.debug:
                 self.get_logger().info("Open the gripper...")
             self.gripper_max = 70 * 1000 * 1000
-            self.piper.MotionCtrl_2(0x01, 0x01, 50)
+            self.piper.MotionCtrl_2(0x01, self.piper.GetArmStatus().arm_status.mode_feed, 100)
             self.piper.GripperCtrl(self.gripper_max, 1000, 0x01, 0)
 
     def handle_enable_service(self, req, resp):
