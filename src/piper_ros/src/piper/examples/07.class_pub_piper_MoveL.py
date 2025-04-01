@@ -7,11 +7,11 @@ from piper_msgs.msg import PosCmd
 
 class WegoPublisher(Node):
     def __init__(self):
-        super().__init__("wego_pub_node")  # 노드 이름 설정
+        super().__init__("wego_pub_movel_node")  # 노드 이름 설정
         self.pub = self.create_publisher(PosCmd, "pos_cmd", 10)  # 퍼블리셔 생성
         self.timer = self.create_timer(2.0, self.publisher_point)  # 수정된 부분
         self.msg = PosCmd()  # 메시지 객체 생성
-        self.waypoint = [250.0, 0.0, 250.0, 0.0, 85.0, 0.0, 10.0]  # 이동해야 할 위치
+        self.waypoint = [160.0, 0.0, 250.0, 0.0, 85.0, 0.0, 10.0]  # 이동해야 할 위치
         self.mode = [0x01, 0x02]  # 바꾸지 말기
 
     def publisher_point(self):
