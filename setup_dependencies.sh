@@ -16,9 +16,9 @@ sudo apt install -y can-utils ethtool iproute2 python3-rosdep python3-colcon-com
 echo "🤖 ROS2 관련 패키지 설치 중..."
 sudo apt install -y ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-controller-manager
 sudo apt install -y ros-humble-joint-state-publisher-gui ros-humble-robot-state-publisher ros-humble-xacro
-sudo apt install -y ros-humble-moveit
+sudo apt install -y ros-humble-moveit ros-humble-moveit-visual-tools
 
-echo "🔧 CMake 최신 버전 업데이트 중..."
+echo "🔧 CMake 최신 버전 설치 중..."
 sudo apt install -y cmake
 
 echo "🐍 Python 패키지 설치 중..."
@@ -30,4 +30,3 @@ else
 fi
 
 echo "✅ 모든 의존성이 설치되었습니다!"
-
