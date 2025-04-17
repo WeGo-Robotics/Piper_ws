@@ -252,6 +252,11 @@ class C_PiperRosNode(Node):
                 self.get_logger().info(f"{joint_name}: {joint_data.position[idx]}")
             joint_positions[joint_name] = round(joint_data.position[idx] * factor)
 
+        if len(joint_data.position) == 6:
+            joint_data.position = list(joint_data.position) + [0.0, 0.0]
+        elif len(joint_data.position) == 7:
+            joint_data.position = list(joint_data.position) + [0.0]
+        
         gripper = round(joint_data.position[6] * 1000 * 1000)
         gripper = clip(gripper, 0, 70000)
 
